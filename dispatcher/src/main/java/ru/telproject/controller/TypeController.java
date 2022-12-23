@@ -3,7 +3,11 @@ package ru.telproject.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -20,21 +24,21 @@ import java.util.*;
 public class TypeController {
     private final TypeRecordingService typeRecordingService;
 
-    public SendMessage checkCommandForTypeRecording(String command, Update update){
+    public List<BotApiMethod> checkCommandForTypeRecording(String command, CallbackQuery callbackQuery){
 
         if (command.equals("edit_type")){
-            return sendTypeMenu();
+            return sendTypeMenu(callbackQuery);
         }
-        SendMessage sendMessage = new SendMessage();
+        List<BotApiMethod> botApiMethod = new ArrayList<>();
         switch (command){
             case "edit_type_create_form":
-                sendMessage = formForType("Для создания типа услуги напишите в формате");
+                botApiMethod = formForType("Для создания типа услуги напишите в формате", callbackQuery);
                 break;
             case "edit_type_see_all":
-                sendMessage = formForSeeAllType(update);
+                botApiMethod = formForSeeAllType(callbackQuery);
                 break;
             case "edit_type_delete":
-                sendMessage = formForTypeDelete(update.getCallbackQuery().getFrom());
+                botApiMethod = formForTypeDelete(callbackQuery.getFrom(), callbackQuery);
                 break;
             case "edit_type_update":
                 break;
@@ -42,14 +46,14 @@ public class TypeController {
 
         if(command.startsWith("edit_type_delete_id")){
             Long typeId = Long.valueOf(command.substring(19));
-            sendMessage = deleteType(typeId, update);
+            botApiMethod = deleteType(typeId, callbackQuery);
         }
 
-        return sendMessage;
+        return botApiMethod;
     }
 
 
-    public SendMessage sendTypeMenu(){
+    public List<BotApiMethod> sendTypeMenu(CallbackQuery callbackQuery){
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         Map<String, String> menuMap = new HashMap<>();
         menuMap.put("Создать тип услуги", "edit_type_create_form");
@@ -61,13 +65,15 @@ public class TypeController {
                 .map(InlineButtonUtils::getArrayTypeInline)
                 .toList();
         markup.setKeyboard(menuList);
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setReplyMarkup(markup);
-        sendMessage.setText("Что вас интересует?");
-        return sendMessage;
+        EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+        editMessageReplyMarkup.setReplyMarkup(markup);
+        setIdForMarkup(callbackQuery, editMessageReplyMarkup);
+        List<BotApiMethod> methodList = new ArrayList<>();
+        methodList.add(editMessageReplyMarkup);
+        return methodList;
     }
 
-    private SendMessage formForType(String startText){
+    private List<BotApiMethod> formForType(String startText, CallbackQuery callbackQuery){
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText("%s:\n".formatted(startText) +
                 "создать услугу: \n" +
@@ -75,12 +81,16 @@ public class TypeController {
                 "Например:\n\n" +
                 "создать услугу: \n" +
                 "Стрижка-500");
-        return sendMessage;
+        sendMessage.setChatId(callbackQuery.getMessage().getChatId());
+        List<BotApiMethod> methodList = new ArrayList<>();
+        methodList.add(sendMessage);
+        return methodList;
     }
 
-    private SendMessage formForTypeDelete(User user){
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Выберите услугу которую хотите удалить:\n");
+    private List<BotApiMethod> formForTypeDelete(User user, CallbackQuery callbackQuery){
+        EditMessageText editMessageText = new EditMessageText();
+        editMessageText.setText("Выберите услугу которую хотите удалить:\n");
+        setIdForText(callbackQuery, editMessageText);
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<TypeRecording> allType = typeRecordingService.findAllType(user.getId());
         List<List<InlineKeyboardButton>> collectButton = allType.stream().
@@ -89,13 +99,28 @@ public class TypeController {
                 .map(InlineButtonUtils::getArrayTypeInline).toList();
         List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>(collectButton);
         markup.setKeyboard(rowsInLine);
-        sendMessage.setReplyMarkup(markup);
-        return sendMessage;
+        EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+        editMessageReplyMarkup.setReplyMarkup(markup);
+        setIdForMarkup(callbackQuery, editMessageReplyMarkup);
+
+        List<BotApiMethod> methodList = new ArrayList<>();
+        methodList.add(editMessageReplyMarkup);
+        methodList.add(editMessageText);
+        return methodList;
     }
 
-    private SendMessage formForSeeAllType(Update update){
+    private void setIdForMarkup(CallbackQuery callbackQuery, EditMessageReplyMarkup editMessageReplyMarkup) {
+        editMessageReplyMarkup.setMessageId(callbackQuery.getMessage().getMessageId());
+        editMessageReplyMarkup.setChatId(callbackQuery.getMessage().getChatId());
+    }
+    private void setIdForText(CallbackQuery callbackQuery, EditMessageText editMessageText) {
+        editMessageText.setMessageId(callbackQuery.getMessage().getMessageId());
+        editMessageText.setChatId(callbackQuery.getMessage().getChatId());
+    }
+
+    private List<BotApiMethod> formForSeeAllType(CallbackQuery callbackQuery){
         SendMessage sendMessage = new SendMessage();
-        List<TypeRecording> allType = typeRecordingService.findAllType(update.getCallbackQuery().getFrom().getId());
+        List<TypeRecording> allType = typeRecordingService.findAllType(callbackQuery.getFrom().getId());
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Ваш перечень услуг:\n");
         for (int i = 0; i < allType.size(); i++) {
@@ -103,13 +128,16 @@ public class TypeController {
             stringBuffer.append("%s. Услуга: %s , стоимость услуги: %s \n".formatted(i+1, type.getTypeName(), type.getTypeCoast()));
         }
         sendMessage.setText(stringBuffer.toString());
-        return sendMessage;
+        sendMessage.setChatId(callbackQuery.getMessage().getChatId());
+        List<BotApiMethod> methodList = new ArrayList<>();
+        methodList.add(sendMessage);
+        return methodList;
     }
 
-    public SendMessage deleteType(Long typeId, Update update){
+    public List<BotApiMethod> deleteType(Long typeId, CallbackQuery callbackQuery){
         SendMessage sendMessage = new SendMessage();
         typeRecordingService.deleteType(typeId);
-        List<TypeRecording> allTypeAfterDelete = typeRecordingService.findAllType(update.getCallbackQuery().getFrom().getId());
+        List<TypeRecording> allTypeAfterDelete = typeRecordingService.findAllType(callbackQuery.getFrom().getId());
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Ваш перечень услуг после удаления:\n");
         for (int i = 0; i < allTypeAfterDelete.size(); i++) {
@@ -117,12 +145,13 @@ public class TypeController {
             stringBuffer.append("%s. Услуга: %s , стоимость услуги: %s \n".formatted(i+1, type.getTypeName(), type.getTypeCoast()));
         }
         sendMessage.setText(stringBuffer.toString());
-        sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
-        return sendMessage;
+        sendMessage.setChatId(callbackQuery.getMessage().getChatId());
+        return List.of(sendMessage);
     }
 
-    public SendMessage createNewType(Update update){
+    public List<BotApiMethod> createNewType(Update update){
         SendMessage sendMessage = new SendMessage();
+        List<BotApiMethod> methodList = new ArrayList<>();
         try {
             String command = update.getMessage().getText();
             String[] split = command.substring(command.indexOf(":")).split("-");
@@ -130,7 +159,8 @@ public class TypeController {
             List<TypeRecording> maybeType = typeRecordingService.findByTypeNameIgnoreCase(split[0].trim() ,appUserId);
             if (maybeType.size() > 0){
                 sendMessage.setText("Данная услуга уже существует попробуйте другое имя для услуги");
-                return sendMessage;
+                methodList.add(sendMessage);
+                return methodList;
             }else {
                 TypeRecording newType = typeRecordingService.createType(split[0].trim(), Double.valueOf(split[1]), appUserId);
                 sendMessage.setText("Тип услуги создан:\n" +
@@ -144,6 +174,7 @@ public class TypeController {
         sendMessage.setChatId(update.getMessage().getChatId());
 
         log.info(sendMessage.getText().replace("\n", " "));
-        return sendMessage;
+        methodList.add(sendMessage);
+        return methodList;
     }
 }

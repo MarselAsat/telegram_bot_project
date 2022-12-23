@@ -4,56 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2baec2a9-d728-44bc-869f-ff4b7de8970e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common-rabbitmq/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common-rabbitmq/src/main/java/ru/telproject/model/RabbitQueue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common-rabbitmq/src/main/java/ru/telproject/utils/PropertiesUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common-rabbitmq/src/main/resources/rabbitmq.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/DispatcherApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RedirectController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TypeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/AppUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/TypeRecording.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/AppUserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/TypeRecordingRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AnswerConsumerImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/UpdateProducerImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/AnswerConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/AppUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/TypeRecordingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/UpdateProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/InlineButtonUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/MessageUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/NodeApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/dao/RawDataDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/entity/RawData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/service/ConsumeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/service/MainService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/service/ProducerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/service/impl/ConsumeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/service/impl/MainServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/java/telproject/service/impl/ProducerServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="2baec2a9-d728-44bc-869f-ff4b7de8970e" name="Changes" comment="Realization on response SendMessage">
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/RecordingUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/RecordingUserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RecordingUserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/RecordingUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RedirectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RedirectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TypeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/AppUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/AppUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/TypeRecording.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/TypeRecording.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/AppUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/AppUserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +35,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -93,6 +63,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.telproject.service.interfac" />
       <recent name="ru.telproject.controller" />
       <recent name="ru.telproject.service" />
       <recent name="ru.telproject.entity" />
@@ -161,6 +132,14 @@
       <option name="presentableId" value="Default" />
       <updated>1666606912412</updated>
     </task>
+    <task id="LOCAL-00001" summary="Realization on response SendMessage">
+      <created>1668519218842</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668519218842</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -173,6 +152,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Realization on response SendMessage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Realization on response SendMessage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -213,24 +196,39 @@
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java</url>
           <line>60</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="45" />
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="46" />
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RedirectController.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RedirectController.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="61" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

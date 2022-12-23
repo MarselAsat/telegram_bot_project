@@ -59,7 +59,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 execute(sendMessage);
                 EditMessageReplyMarkup markup = new EditMessageReplyMarkup();
                 markup.setReplyMarkup((InlineKeyboardMarkup) sendMessage.getReplyMarkup());
-                System.out.println("ss");
             }catch (TelegramApiException ex){
                 log.error(ex);
             }

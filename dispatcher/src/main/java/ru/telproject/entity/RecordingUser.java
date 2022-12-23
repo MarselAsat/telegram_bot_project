@@ -1,34 +1,32 @@
 package ru.telproject.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "type_recording")
-public class TypeRecording {
+@Table(name = "recording_user")
+public class RecordingUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String typeName;
+    @ManyToOne
+    @JoinColumn(name = "type_recording_id")
+    private TypeRecording typeRecording;
 
-    private Double typeCoast;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
-    @OneToMany(mappedBy = "typeRecording")
-    private List<RecordingUser> recordingUsers;
+    private LocalDateTime recordingTime;
 }

@@ -48,8 +48,6 @@ public class UpdateController {
 
         if (update.hasMessage()) {
             distributeMessageByType(update);
-        } else {
-            log.error("Receviedunsupportedmessagetype " + update);
         }
 
     }
@@ -96,11 +94,9 @@ public class UpdateController {
     private void processTextMessageCallback(Update update) {
         String command = update.getCallbackQuery().getData();
         SendMessage sendMessage = new SendMessage();
-        sendMessage = redirectController.checkCommand(update);
+        List<BotApiMethod> methodList = redirectController.checkCommand(update.getCallbackQuery());
 
-        sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
-
-        setView(sendMessage);
+        methodList.forEach(this::editMessage);
     }
 
     public void sendMenu(Update update){
@@ -129,7 +125,7 @@ public class UpdateController {
     }
 
     public void checkUser(Update update){
-        if (appUserService.findByTelegramId(update).isPresent()){
+        if (appUserService.findByTelegramId(update.getMessage().getFrom().getId()).isPresent()){
             sendMenu(update);
         }else {
             appUserService.createUser(update);

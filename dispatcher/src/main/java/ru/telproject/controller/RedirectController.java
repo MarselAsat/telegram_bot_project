@@ -2,8 +2,14 @@ package ru.telproject.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -12,20 +18,21 @@ public class RedirectController {
     private final TypeController typeController;
     private final RecordingController recordingController;
 
-    public SendMessage checkCommand(Update update){
-        String command = update.getCallbackQuery().getData();
-        SendMessage sendMessage = new SendMessage();
+    public List<BotApiMethod> checkCommand(CallbackQuery callbackQuery){
+        String command = callbackQuery.getData();
         if (command.startsWith("edit")){
-         return sendMessage = typeController.checkCommandForTypeRecording(command, update);
+            List<BotApiMethod> methodList = typeController.checkCommandForTypeRecording(command, callbackQuery);
+            return methodList;
         } else if (command.startsWith("recording")) {
-          return sendMessage = recordingController.checkCommandForRecording(command, update);
+          return recordingController.checkCommandForRecording(command, callbackQuery);
         }
+        SendMessage sendMessage = new SendMessage();
         sendMessage.setText("Что то пошло не так, попробуйте еще раз...");
 
-        return sendMessage;
+        return List.of(sendMessage);
     }
 
-    public SendMessage commandToTypeCreate(Update update){
+    public List<BotApiMethod> commandToTypeCreate(Update update){
         return typeController.createNewType(update);
     }
 }

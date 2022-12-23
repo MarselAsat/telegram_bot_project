@@ -29,4 +29,8 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
     private List<TypeRecording> typeRecordings = new ArrayList<>();
 
+//    @Builder.Default
+//    @OneToOne(mappedBy = "appUser", fetch = FetchType.LAZY)
+//    private List<RecordingUser> userRecordings = new ArrayList<>();
+
 }

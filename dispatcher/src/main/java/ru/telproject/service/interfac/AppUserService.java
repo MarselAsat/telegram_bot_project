@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface AppUserService {
     AppUser createUser(Update update);
-    Optional<AppUser> findByTelegramId(Update update);
+    Optional<AppUser> findByTelegramId(Long appUserTelegramId);
 }

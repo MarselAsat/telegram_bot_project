@@ -28,8 +28,8 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public Optional<AppUser> findByTelegramId(Update update) {
+    public Optional<AppUser> findByTelegramId(Long appUserTelegramId) {
         return appUserRepository
-                .findByTelegramUserId(update.getMessage().getFrom().getId());
+                .findByTelegramUserId(appUserTelegramId);
     }
 }
