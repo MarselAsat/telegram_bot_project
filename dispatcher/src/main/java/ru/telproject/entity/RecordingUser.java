@@ -24,9 +24,12 @@ public class RecordingUser {
     @JoinColumn(name = "type_recording_id")
     private TypeRecording typeRecording;
 
+
     @ManyToOne
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
     private LocalDateTime recordingTime;
+
+    private String description;
 }

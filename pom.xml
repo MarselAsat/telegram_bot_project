@@ -11,6 +11,7 @@
         <module>dispatcher</module>
         <module>common-rabbitmq</module>
         <module>node</module>
+        <module>user_hash</module>
     </modules>
     <packaging>pom</packaging>
 

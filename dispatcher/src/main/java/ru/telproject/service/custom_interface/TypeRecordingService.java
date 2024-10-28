@@ -1,10 +1,8 @@
-package ru.telproject.service.interfac;
+package ru.telproject.service.custom_interface;
 
-import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.telproject.entity.TypeRecording;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TypeRecordingService {
     List<TypeRecording> findByTypeNameIgnoreCase(String typeName, Long appUserTelegramId);

@@ -1,12 +1,14 @@
 package ru.telproject.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -62,6 +64,18 @@ public class TelegramBot extends TelegramLongPollingBot {
             }catch (TelegramApiException ex){
                 log.error(ex);
             }
+        }
+    }
+
+    @SneakyThrows
+    public void setSticker(SendSticker sticker){
+        execute(sticker);
+    }
+
+    @SneakyThrows
+    public void sendMessage(SendMessage sendMessage){
+        if (sendMessage != null) {
+            execute(sendMessage);
         }
     }
 

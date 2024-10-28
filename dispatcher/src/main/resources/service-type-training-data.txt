@@ -1,0 +1,10 @@
+service_type    маникюр
+service_type    педикюр
+service_type    макияж
+service_type    наращивание ресниц
+service_type    коррекция бровей
+service_type    пирсинг
+service_type    татуаж
+service_type    депиляция
+service_type    стрижка
+service_type    окрашивание волос

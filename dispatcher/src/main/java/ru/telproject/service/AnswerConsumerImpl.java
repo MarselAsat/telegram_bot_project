@@ -5,7 +5,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import ru.telproject.controller.UpdateController;
-import ru.telproject.service.interfac.AnswerConsumer;
+import ru.telproject.service.custom_interface.AnswerConsumer;
 
 import static ru.telproject.model.RabbitQueue.ANSWER_MESSAGE_UPDATE;
 
@@ -20,4 +20,6 @@ public class AnswerConsumerImpl implements AnswerConsumer {
     public void consume(SendMessage sendMessage) {
 //        updateController.setView(sendMessage);
     }
+
+
 }

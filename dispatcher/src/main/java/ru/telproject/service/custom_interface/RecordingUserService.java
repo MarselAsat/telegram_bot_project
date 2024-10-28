@@ -1,8 +1,7 @@
-package ru.telproject.service.interfac;
+package ru.telproject.service.custom_interface;
 
 import ru.telproject.entity.RecordingUser;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface RecordingUserService {
