@@ -1,6 +1,7 @@
 package ru.telproject.service.command;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -8,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telproject.entity.AppUser;
 import ru.telproject.entity.RecordingUser;
 import ru.telproject.entity.TypeRecording;
+import ru.telproject.exception.UserNotFoundException;
 import ru.telproject.repository.RecordingUserRepository;
 import ru.telproject.service.AppUserService;
 import ru.telproject.service.TypeRecordingService;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class UpdateRecordCommand implements Command {
     private final TypeRecordingService typeRecordingService;
     private final AppUserService appUserService;
@@ -35,6 +38,7 @@ public class UpdateRecordCommand implements Command {
 
     @Override
     public SendMessage executeFirstMessage(Message message) {
+        log.info("Processing update record first message for chat ID: {}", message.getText());
         String messageText = message.getText();
         Long telegramUserId = message.getChatId();
         SendMessage sendMessage = new SendMessage();
@@ -50,7 +54,7 @@ public class UpdateRecordCommand implements Command {
         String finalTypeRecordName = typeRecordName.get(0);
         TypeRecording typeRecording = allTypeByAppUserId.stream()
                 .filter(t -> t.getTypeName().equalsIgnoreCase(finalTypeRecordName)).findFirst().get();
-        List<LocalDate> allDateFromString = TextFinderUtils.getAllDateFromString(messageText);
+        List<LocalDate> allDateFromString = TextFinderUtils.extractAllDates(messageText);
         List<LocalTime> allLocalTimeFromString = TextFinderUtils.getAllLocalTimeFromString(messageText);
         List<LocalDateTime> dateTimes = new ArrayList<>();
         for (int i = 0; i < allDateFromString.size(); i++) {
@@ -71,16 +75,19 @@ public class UpdateRecordCommand implements Command {
         sendMessage.setText("Желаете изменит описание к записи?\n" +
                 "Текущее описание:" + recordUser.getDescription() +
                 "\nЕсли не желаете менять описание, напишите: нет");
+        log.info("Successfully update record first message for chat ID: {}", message.getText());
         return sendMessage;
     }
 
     private AppUser findAppUserByTelegramId(Long telegramUserId) {
         return appUserService.findAppUserByTelegramId(telegramUserId)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+
     }
 
     @Override
     public Pair<SendMessage, String> executeNextMessage(Message message) {
+        log.info("Processing update record next message for chat ID: {}", message.getText());
         String messageText = message.getText();
         Long telegramUserId = message.getChatId();
         SendMessage sendMessage = new SendMessage();
@@ -97,6 +104,7 @@ public class UpdateRecordCommand implements Command {
         recordingUserRepository.save(recordingUser);
         sendMessage.setText(stringBuffer.toString());
         Pair<SendMessage, String> pair = Pair.of(sendMessage, "classpath:sticker/saveit.webm");
+        log.info("Successfully update record next message for chat ID: {}", message.getText());
         return pair;
     }
 }

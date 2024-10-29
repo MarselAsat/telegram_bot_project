@@ -2,6 +2,7 @@ package ru.telproject.service.command;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -11,10 +12,12 @@ import ru.telproject.entity.RecordingUser;
 import ru.telproject.entity.TypeRecording;
 import ru.telproject.repository.RecordingUserRepository;
 import ru.telproject.service.AppUserService;
+import ru.telproject.service.RecordingService;
 import ru.telproject.service.TypeRecordingService;
 import ru.telproject.service.custom_interface.Command;
 import ru.telproject.utils.StemmingUtils;
 import ru.telproject.utils.TextFinderUtils;
+import ru.telproject.validator.RecordingValidator;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -28,50 +31,26 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class CreateRecordCommand implements Command {
     private final RecordingUserRepository recordingUserRepository;
-    private final TypeRecordingService typeRecordingService;
-    private final AppUserService appUserService;
+    private final RecordingService recordingService;
+    private final RecordingValidator recordingValidator;
     private final ConcurrentHashMap<Long, RecordingUser> mapRecord = new ConcurrentHashMap<>();
 
-    @SneakyThrows
     @Override
     public SendMessage executeFirstMessage(Message message) {
-        String messageText = message.getText();
-        Long telegramUserId = message.getChatId();
-        AppUser appUser = findAppUserByTelegramId(telegramUserId);
-        List<TypeRecording> typeRecordings = findTypeRecordings(appUser, messageText);
-        LocalDateTime dateTimeRecord = parseDateTime(messageText);
-        RecordingUser recordingUser = RecordingUser.builder().typeRecording(typeRecordings.get(0))
-                .appUser(appUser).recordingTime(dateTimeRecord).build();
-        mapRecord.put(telegramUserId, recordingUser);
+        log.info("Processing create record first message for chat ID: {}", message.getChatId());
+        LocalDateTime dateTimeRecord = parseDateTime(message.getText());
+        recordingValidator.validatorRecordingTime(dateTimeRecord);
+        RecordingUser recordingUser = recordingService.createRecording(message, dateTimeRecord);
+        recordingValidator.validateTypeRecording(recordingUser.getTypeRecording());
+        mapRecord.put(message.getChatId(), recordingUser);
         SendMessage sendMessage = createFirstMessage();
+        log.info("Successfully processed create record message: {}", message.getText());
         return sendMessage;
     }
 
-    private AppUser findAppUserByTelegramId(Long telegramUserId) {
-        return appUserService.findAppUserByTelegramId(telegramUserId)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
-    }
-
-    private List<TypeRecording> findTypeRecordings(AppUser appUser, String messageText) throws IOException {
-        List<TypeRecording> allByAppUserId = typeRecordingService.findAllByAppUserId(appUser.getId());
-        List<String> typeNames = allByAppUserId.stream()
-                .map(typeRecording -> typeRecording.getTypeName()).collect(Collectors.toList());
-        List<String> stemmedWords = StemmingUtils.stemWords(typeNames);
-        String regexTypeNames = stemmedWords.stream().collect(Collectors.joining("[аеиуой]|"));
-        String typeName = "";
-        Matcher matcher = TextFinderUtils.findRecordOnText("(" + regexTypeNames + "[аеиуой])\\s+", messageText);
-        while (matcher.find()) {
-            typeName = matcher.group(1);
-        }
-        String filterValue = StemmingUtils.stemWords(List.of(typeName)).get(0);
-        typeName = typeNames.stream().filter(t -> t.contains(filterValue)).findFirst()
-                .orElseThrow(() -> new RuntimeException(String.format("Услуга: %s не найдена", filterValue)));
-        List<TypeRecording> typeRecordings = typeRecordingService.findByTypeNameIgnoreCaseAndAppUserId(typeName,
-                appUser.getId());
-        return typeRecordings;
-    }
 
     private static LocalDateTime parseDateTime(String messageText) {
         LocalDate dateRecord = TextFinderUtils.getDateFromString(messageText);
@@ -89,17 +68,20 @@ public class CreateRecordCommand implements Command {
 
     @Override
     public Pair<SendMessage, String> executeNextMessage(Message message) {
+        log.info("Processing create record next message chat ID: {}", message.getChatId());
         String messageText = message.getText();
         Long telegramUserId = message.getChatId();
         RecordingUser recordingUser = mapRecord.get(telegramUserId);
+        Pair<SendMessage, String> pair = createNextMessage(recordingUser, messageText);
         mapRecord.remove(telegramUserId);
         recordingUserRepository.save(recordingUser);
-        Pair<SendMessage, String> pair = createNextMessage(recordingUser, messageText);
+        log.info("Successfully create record processed next message: {}. recordingID={}",
+                message.getText(),
+                recordingUser.getId());
         return pair;
     }
 
-    private static Pair<SendMessage, String> createNextMessage(RecordingUser recordingUser, String messageText) {
-        SendMessage sendMessage = new SendMessage();
+    private Pair<SendMessage, String> createNextMessage(RecordingUser recordingUser, String messageText) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Создал запись на ").append(recordingUser.getTypeRecording().getTypeName())
                 .append("\nДата записи: ")
@@ -108,9 +90,16 @@ public class CreateRecordCommand implements Command {
             recordingUser.setDescription(messageText);
             stringBuffer.append("\nОписание к записи: ").append(messageText);
         }
+        SendMessage sendMessage = buildResponseMessage(recordingUser);
         sendMessage.setText(stringBuffer.toString());
         Pair<SendMessage, String> pair = Pair.of(sendMessage, "classpath:sticker/saveit.webm");
         return pair;
+    }
+
+    private SendMessage buildResponseMessage(RecordingUser recordingUser){
+        return SendMessage.builder()
+                .chatId(recordingUser.getAppUser().getTelegramUserId())
+                .build();
     }
 
 

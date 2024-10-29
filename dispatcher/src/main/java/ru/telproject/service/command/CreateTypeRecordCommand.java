@@ -1,6 +1,7 @@
 package ru.telproject.service.command;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class CreateTypeRecordCommand implements Command {
     private final ConcurrentHashMap<Long, String> userData = new ConcurrentHashMap<>();
 
@@ -26,6 +28,7 @@ public class CreateTypeRecordCommand implements Command {
     private final AppUserService appUserService;
     @Override
     public SendMessage executeFirstMessage(Message message) {
+        log.info("Processing create type record first message for chat ID: {}", message.getChatId());
         String text = message.getText();
         Pattern pattern = Pattern.compile("(услугу|услуги)\\s+(\\p{L}+)", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher matcher = pattern.matcher(text);
@@ -36,11 +39,13 @@ public class CreateTypeRecordCommand implements Command {
         }
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(String.format("Какая цена будет у услуги %s?", typeName));
+        log.info("Successfully processed create type record message: {}", message.getText());
         return sendMessage;
     }
 
     @Override
     public Pair<SendMessage, String> executeNextMessage(Message message) {
+        log.info("Processing create type record next message chat ID: {}", message.getChatId());
         String messageText = message.getText();
         Pattern pattern = Pattern.compile("\\b(\\d+.\\d+|\\d+)");
         Matcher matcher = pattern.matcher(messageText);
@@ -60,6 +65,7 @@ public class CreateTypeRecordCommand implements Command {
                 typeRecording.setAppUser(byTelegramUserId.orElseThrow());
                 typeRecordingService.saveTypeRecord(typeRecording);
                 sendMessage.setText(String.format("Создал услугу: %s \n цена услуги: %s", typeName, price));
+                log.info("Create type record userId={}, typeRecordID={}", message.getChatId(), typeRecording.getId());
                 return Pair.of(sendMessage, "classpath:sticker/yes-sir.webm");
             } else {
                 sendMessage.setText(String.format("У вас уже есть такая услуга: %s \nНе получится сохранить",

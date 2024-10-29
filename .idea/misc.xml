@@ -12,6 +12,8 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/common-jpa/pom.xml" />
+        <option value="$PROJECT_DIR$/common-rabbitmq/pom.xml" />
+        <option value="$PROJECT_DIR$/node/pom.xml" />
         <option value="$PROJECT_DIR$/user_cash/pom.xml" />
       </set>
     </option>

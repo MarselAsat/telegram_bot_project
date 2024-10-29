@@ -11,16 +11,17 @@ import java.util.Optional;
 public interface RecordingUserRepository extends JpaRepository<RecordingUser, Long> {
 List<RecordingUser> findByAppUserIdAndRecordingTime(Long appUserId, LocalDateTime dateTime);
 @Query("SELECT r FROM RecordingUser r " +
-        "where r.appUser.id = :appUserId " +
-        "and r.recordingTime between :startTime and :endTime")
+        "WHERE r.appUser.id = :appUserId " +
+        "AND (:startTime IS NULL OR r.recordingTime >= :startTime) AND " +
+        "(:endTime IS NULL OR r.recordingTime <= :endTime)")
 List<RecordingUser> findByAppUserIdAndTimeBetween(Long appUserId, LocalDateTime startTime, LocalDateTime endTime);
 
 
 List<RecordingUser> findAllByRecordingTimeBetween(LocalDateTime startTime, LocalDateTime endTime);
 
 @Query("SELECT r FROM RecordingUser r " +
-        "where r.recordingTime = :recordTime " +
-        "and r.typeRecording.id = :typeId " +
-        "and r.appUser.id = :appUserId")
+        "WHERE r.recordingTime = :recordTime " +
+        "AND r.typeRecording.id = :typeId " +
+        "AND r.appUser.id = :appUserId")
 Optional<RecordingUser> findRecordsByTimeTypeIdUserID(LocalDateTime recordTime, Long typeId, Long appUserId);
 }

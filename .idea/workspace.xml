@@ -4,69 +4,61 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2baec2a9-d728-44bc-869f-ff4b7de8970e" name="Changes" comment="Realization on response SendMessage">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/configuration/QuartzConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RabbitMQListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TextRecognizer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CommandPull.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateTypeRecordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteRecordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteTypeRecordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/FirstRegistrationCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/InfoViewCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewTypeRecordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/CommandUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/ModelTrainer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/StemmingUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/TextFinderUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/intent-training-data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/price-training-data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/service-type-training-data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/sticker/badabum.webm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/sticker/bisness-cat.webm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/sticker/monkey.webm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/sticker/order ready.webm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/sticker/panic.webm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/sticker/saveit.webm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="2baec2a9-d728-44bc-869f-ff4b7de8970e" name="Changes" comment="feat: add redis hash and ttl to record user on redis, added open nlp model">
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/InvalidRecordTypeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/InvalidRecordingTimeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/TypeRecordingNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/UserNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception_handle/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RecordingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/validator/RecordingValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/CreateRecordCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/RecordingServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/utils/TextFinderUtilsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_hash/src/main/java/ru/telproj/user_hash/RedisConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common-rabbitmq/src/main/java/ru/telproject/model/RabbitQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/common-rabbitmq/src/main/java/ru/telproject/model/RabbitQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common-rabbitmq/src/main/resources/rabbitmq.properties" beforeDir="false" afterPath="$PROJECT_DIR$/common-rabbitmq/src/main/resources/rabbitmq.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-rabbitmq/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-rabbitmq/src/main/java/ru/telproject/model/RabbitQueue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-rabbitmq/src/main/java/ru/telproject/utils/PropertiesUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-rabbitmq/src/main/resources/rabbitmq.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/DispatcherApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/DispatcherApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/configuration/RabbitConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RecordingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/RedirectController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/configuration/RabbitConfiguration.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TypeController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/AppUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/AppUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/RecordingUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/RecordingUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/TypeRecording.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/entity/TypeRecording.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/AppUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/AppUserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/RecordingUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/RecordingUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AnswerConsumerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AnswerConsumerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RecordingUserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/UpdateProducerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/UpdateProducerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/AnswerConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/AnswerConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/AppUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/AppUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/RecordingUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/RecordingUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/TypeRecordingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/TypeRecordingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/interfac/UpdateProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/UpdateProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/InlineButtonUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AnswerConsumerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RabbitMQListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/UpdateProducerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateTypeRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateTypeRecordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteRecordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteTypeRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteTypeRecordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/FirstRegistrationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/FirstRegistrationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/InfoViewCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/InfoViewCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewTypeRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewTypeRecordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/AnswerConsumer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/AppUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/RecordingUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/TypeRecordingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/UpdateProducer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/TextFinderUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/TextFinderUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/NodeApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/configuration/RabbitConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/dao/RawDataDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/entity/RawData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/service/ConsumeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/service/MainService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/service/ProducerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/service/impl/ConsumeServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/service/impl/MainServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/java/telproject/service/impl/ProducerServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/main/resources/log4j.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,6 +71,7 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -118,6 +111,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.DispatcherApplication.executor": "Debug",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "edit__message__response",
     "jdk.selected.JAVA_MODULE": "17",
     "kotlin-language-version-configured": "true",
@@ -128,11 +123,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/marsel.asatov/IdeaProjects/telegram_bot_project/user_hash/src/main/java/ru/telproj/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -146,11 +141,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.telproject.exception" />
       <recent name="ru.telproject.service.command" />
       <recent name="ru.telproject.service.interfac" />
       <recent name="ru.telproject.controller" />
       <recent name="ru.telproject.service" />
-      <recent name="ru.telproject.entity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\marsel.asatov\javaProjects\telegram_client_bot\dispatcher\src\main\java\ru\telproject" />
@@ -160,8 +155,28 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\marsel.asatov\IdeaProjects\telegram_bot_project\dispatcher\src\main\resources\sticker" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.telproject.service" />
+      <recent name="ru.telproject.utils" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.TextFinderUtils">
+    <configuration name="TextFinderUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.telproject.utils.TextFinderUtils" />
+      <module name="dispatcher" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.telproject.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DispatcherApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="dispatcher" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.telproject.DispatcherApplication" />
@@ -177,6 +192,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TextFinderUtils" />
         <item itemvalue="Spring Boot.DispatcherApplication" />
       </list>
     </recent_temporary>
@@ -214,7 +230,9 @@
       <workItem from="1729843557756" duration="2853000" />
       <workItem from="1729849974415" duration="92000" />
       <workItem from="1729851355790" duration="14927000" />
-      <workItem from="1730098485965" duration="2431000" />
+      <workItem from="1730098485965" duration="4320000" />
+      <workItem from="1730127754066" duration="1585000" />
+      <workItem from="1730182375925" duration="24698000" />
     </task>
     <task id="LOCAL-00001" summary="Realization on response SendMessage">
       <created>1668519218842</created>
@@ -223,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1668519218842</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: add redis hash and ttl to record user on redis">
+      <option name="closed" value="true" />
+      <created>1730125691972</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1730125691972</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,31 +268,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Realization on response SendMessage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Realization on response SendMessage" />
+    <MESSAGE value="feat: add redis hash and ttl to record user on redis, added open nlp model" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add redis hash and ttl to record user on redis, added open nlp model" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/custom_interface/UpdateProducer.java</url>
-          <line>4</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/UpdateProducerImpl.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/TelegramBot.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TextRecognizer.java</url>
           <line>43</line>
@@ -279,37 +286,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateTypeRecordCommand.java</url>
-          <line>33</line>
+          <line>36</line>
           <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateTypeRecordCommand.java</url>
-          <line>64</line>
+          <line>70</line>
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/TextFinderUtils.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/TextFinderUtils.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java</url>
-          <line>88</line>
+          <line>86</line>
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -324,7 +311,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/FirstRegistrationCommand.java</url>
-          <line>20</line>
+          <line>23</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -361,32 +348,14 @@
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java</url>
-          <line>67</line>
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java</url>
-          <line>68</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="112" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java</url>
-          <line>23</line>
+          <line>22</line>
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java</url>
-          <line>24</line>
+          <line>23</line>
           <option name="timeStamp" value="116" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RabbitMQListener.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java</url>

@@ -1,6 +1,7 @@
 package ru.telproject.service.command;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -23,12 +24,14 @@ import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class DeleteRecordCommand implements Command {
     private final RecordingUserRepository recordingUserRepository;
     private final AppUserService appUserService;
     private final TypeRecordingService typeRecordingService;
     @Override
     public SendMessage executeFirstMessage(Message message) {
+        log.info("Processing delete record first message chat ID: {}", message.getChatId());
         String text = message.getText();
         Pattern pattern = Pattern.compile("(услугу|услуги)\\s+(\\p{L}+)", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher matcher = pattern.matcher(text);
@@ -53,6 +56,7 @@ public class DeleteRecordCommand implements Command {
                     Желаете удалить запись на услугу %s?
                     Дата и время записи: %s
                     """.formatted(typeRecording.getTypeName(), recordTime.format(dateTimeFormatter)));
+            log.info("Successfully processed delete record message: {}", message.getText());
         }else {
             sendMessage.setText("Не нашел такую запись у вас");
         }

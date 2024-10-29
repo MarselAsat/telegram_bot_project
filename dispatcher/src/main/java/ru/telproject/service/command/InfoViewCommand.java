@@ -1,14 +1,17 @@
 package ru.telproject.service.command;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telproject.service.custom_interface.Command;
 
 @Component
+@Slf4j
 public class InfoViewCommand implements Command {
     @Override
     public SendMessage executeFirstMessage(Message message) {
+        log.info("Processing get info message for chat ID: {}", message.getText());
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText("""
                 Я бот-помощник мастерам предосталяющим услуги.

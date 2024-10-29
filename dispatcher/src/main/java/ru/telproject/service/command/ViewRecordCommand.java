@@ -1,6 +1,7 @@
 package ru.telproject.service.command;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,11 +23,13 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class ViewRecordCommand implements Command {
     private final RecordingUserRepository recordingUserRepository;
     private final AppUserService appUserService;
     @Override
     public SendMessage executeFirstMessage(Message message) {
+        log.info("Processing view record first message for chat ID: {}", message.getText());
         String messageText = message.getText();
         Long telegramUserId = message.getChatId();
         SendMessage sendMessage  = new SendMessage();
@@ -36,16 +39,19 @@ public class ViewRecordCommand implements Command {
         }else {
             sendMessage.setText("На какую дату вы хотите посмотреть записи?");
         }
+        log.info("Successfully view record first message for chat ID: {}", message.getText());
         return sendMessage;
     }
 
     @Override
     public Pair<SendMessage, String> executeNextMessage(Message message) {
+        log.info("Processing view record next message for chat ID: {}", message.getText());
         String messageText = message.getText();
         Long telegramUserId = message.getChatId();
         SendMessage sendMessage = new SendMessage();
         LocalDate date = TextFinderUtils.getDateFromString(messageText);
         returnSendMessageOnDate(telegramUserId, date, sendMessage);
+        log.info("Successfully view record next message for chat ID: {}", message.getText());
         return Pair.of(sendMessage, "null");
     }
 

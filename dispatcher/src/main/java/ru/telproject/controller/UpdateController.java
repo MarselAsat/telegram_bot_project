@@ -77,14 +77,12 @@ public class UpdateController {
         }
     }
 
-    @SneakyThrows
     public SendSticker sendSticker(String path){
         SendSticker sticker = new SendSticker();
         sticker.setSticker(new InputFile(ResourceUtils.getFile(path)));
         return sticker;
     }
 
-    @SneakyThrows
     public boolean checkUser(Update update){
         if (appUserService.findAppUserByTelegramId(update.getMessage().getChatId()).isPresent()){
             return true;
@@ -92,7 +90,7 @@ public class UpdateController {
             Command firstRegistrationCommand = commandPull.getCommand("first_registration_command");
             SendMessage sendMessage = firstRegistrationCommand.executeFirstMessage(update.getMessage());
             sendMessage.setChatId(update.getMessage().getChatId());
-            telegramBot.execute(sendMessage);
+            sendMessage(sendMessage);
             return false;
         }
     }
