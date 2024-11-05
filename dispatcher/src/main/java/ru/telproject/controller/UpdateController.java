@@ -11,11 +11,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.telproject.exception.NotFoundStickerException;
 import ru.telproject.service.AppUserService;
 import ru.telproject.service.TextRecognizer;
 import ru.telproject.service.command.CommandPull;
 import ru.telproject.service.custom_interface.Command;
 import ru.telproject.utils.CommandUtils;
+
+import java.io.FileNotFoundException;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -40,7 +43,7 @@ public class UpdateController {
             Message message = update.getMessage();
             String messageText = message.getText();
             Long chatId = message.getChatId();
-            String intent = textRecognizer.recognizeIntent(messageText);
+            String intent = textRecognizer.recognizeIntent(messageText.toLowerCase());
             if (userStates.containsKey(chatId)){
                 Command command = commandPull.getCommand(userStates.get(chatId));
                 Pair<SendMessage, String> sendMessageStringPair = command.executeNextMessage(message);
@@ -79,7 +82,11 @@ public class UpdateController {
 
     public SendSticker sendSticker(String path){
         SendSticker sticker = new SendSticker();
-        sticker.setSticker(new InputFile(ResourceUtils.getFile(path)));
+        try {
+            sticker.setSticker(new InputFile(ResourceUtils.getFile(path)));
+        } catch (FileNotFoundException e) {
+            throw new NotFoundStickerException(e.getMessage() + "path: " + path);
+        }
         return sticker;
     }
 

@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import ru.telproject.exception.InvalidRecordingTimeException;
-import ru.telproject.exception.TypeRecordingNotFoundException;
-import ru.telproject.exception.UserNotFoundException;
+import ru.telproject.exception.*;
+
+import java.time.format.DateTimeParseException;
 
 @ControllerAdvice
 @Slf4j
@@ -33,5 +33,19 @@ public class GlobalExceptionHandler {
         return SendMessage.builder()
                 .text("Не возможно создать запись на уже прошедшее время")
                 .build();
+    }
+
+    @ExceptionHandler(NotFoundStickerException.class)
+    public void handleNotFoundStickerException(NotFoundStickerException ex){
+        log.warn("Not found sticker exception");
+    }
+    @ExceptionHandler(NotFoundTemporaryDateUser.class)
+    public void handleNotFoundTemporaryDateUserException(NotFoundStickerException ex){
+        log.warn("Service not found temporary date for User");
+    }
+
+    @ExceptionHandler(DateTimeParseException.class)
+    public void handlerDateTimeParseException(DateTimeParseException ex){
+        log.warn("Date/time parse exception. ex = " + ex.getMessage());
     }
 }

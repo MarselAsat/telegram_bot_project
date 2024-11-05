@@ -51,13 +51,13 @@ public class RecordingService {
         List<String> typeNames = allByAppUserId.stream()
                 .map(typeRecording -> typeRecording.getTypeName()).collect(Collectors.toList());
         List<String> stemmedWords = StemmingUtils.stemWords(typeNames);
-        String regexTypeNames = stemmedWords.stream().collect(Collectors.joining("[аеиуой]|"));
+        String regexTypeNames = stemmedWords.stream().collect(Collectors.joining("([аеиуой])?|"));
         String typeName = "";
-        Matcher matcher = TextFinderUtils.findRecordOnText("(" + regexTypeNames + "[аеиуой])\\s+", messageText);
+        Matcher matcher = TextFinderUtils.findRecordOnText("(" + regexTypeNames + "([аеиуой])?)\\s+", messageText);
         while (matcher.find()) {
             typeName = matcher.group(1);
         }
-        String filterValue = StemmingUtils.stemWords(List.of(typeName)).get(0);
+        String filterValue = StemmingUtils.stemWords(List.of(typeName)).stream().findFirst().orElse("null");
         typeName = typeNames.stream().filter(t -> t.contains(filterValue)).findFirst()
                 .orElseThrow(() -> new TypeRecordingNotFoundException(String.format("Услуга: %s не найдена", filterValue)));
         TypeRecording typeRecordings = typeRecordingService.findByTypeNameIgnoreCaseAndAppUserId(typeName,

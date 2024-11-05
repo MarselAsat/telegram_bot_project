@@ -3,11 +3,13 @@ package ru.telproject.service.command;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telproject.entity.AppUser;
 import ru.telproject.entity.TypeRecording;
-import ru.telproject.repository.AppUserRepository;
+import ru.telproject.exception.UserNotFoundException;
+import ru.telproject.service.AppUserService;
 import ru.telproject.service.TypeRecordingService;
 import ru.telproject.service.custom_interface.Command;
 
@@ -20,17 +22,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ViewTypeRecordCommand implements Command {
     private final TypeRecordingService typeRecordingService;
-    private final AppUserRepository appUserRepository;
+    private final AppUserService appUserService;
     @Override
     public SendMessage executeFirstMessage(Message message) {
         log.info("Processing view record type first message for chat ID: {}", message.getText());
         Long telegramUserId = message.getChatId();
-        Optional<AppUser> byTelegramUserId = appUserRepository.findByTelegramUserId(telegramUserId);
-        AppUser appUser = byTelegramUserId.orElseThrow();
+        AppUser appUser = appUserService.findAppUserByTelegramId(telegramUserId)
+                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
         List<TypeRecording> allTypeRecordUser = typeRecordingService.findAllByAppUserId(appUser.getId());
         String formatStringTypesRecord = getFormatStringTypesRecord(allTypeRecordUser);
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Перечень ваших услуг:\n" + formatStringTypesRecord);
+        if (StringUtils.hasText(formatStringTypesRecord)) {
+            sendMessage.setText("Перечень ваших услуг:\n" + formatStringTypesRecord);
+        }else {
+            sendMessage.setText("У вас пока нет созданных услуг");
+        }
         log.info("Successfully view record type first message for chat ID: {}", message.getText());
         return sendMessage;
     }

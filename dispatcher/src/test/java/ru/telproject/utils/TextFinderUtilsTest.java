@@ -66,4 +66,5 @@ class TextFinderUtilsTest {
         Matcher matcher = TextFinderUtils.findRecordOnText("(макияж)", text);
         assertEquals("макияж", matcher.find() ? matcher.group(1) : null);
     }
+
 }

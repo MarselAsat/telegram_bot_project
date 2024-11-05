@@ -22,8 +22,9 @@ public class ModelTrainer {
         DocumentSampleStream sampleStream = new DocumentSampleStream(lineStream);
 
         TrainingParameters parameters = new TrainingParameters();
-        parameters.put(TrainingParameters.ITERATIONS_PARAM, 300);
-        parameters.put(TrainingParameters.CUTOFF_PARAM, 5);
+        parameters.put(TrainingParameters.ITERATIONS_PARAM, 2000);
+        parameters.put(TrainingParameters.CUTOFF_PARAM, 3);
+        parameters.put(TrainingParameters.ALGORITHM_PARAM, "MAXENT");
 
         DoccatModel model = DocumentCategorizerME.train("ru", sampleStream, parameters, new DoccatFactory());
         model.serialize(new File(modelPath));

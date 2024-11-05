@@ -9,12 +9,16 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telproject.entity.AppUser;
 import ru.telproject.entity.RecordingUser;
 import ru.telproject.entity.TypeRecording;
+import ru.telproject.exception.InvalidRecordTypeException;
+import ru.telproject.exception.NotFoundTemporaryDateUser;
+import ru.telproject.exception.RecordingUserNotFoundExceprion;
 import ru.telproject.exception.UserNotFoundException;
 import ru.telproject.repository.RecordingUserRepository;
 import ru.telproject.service.AppUserService;
 import ru.telproject.service.TypeRecordingService;
 import ru.telproject.service.custom_interface.Command;
 import ru.telproject.utils.TextFinderUtils;
+import ru.telproject.validator.RecordingValidator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,10 +26,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -35,6 +39,7 @@ public class UpdateRecordCommand implements Command {
     private final AppUserService appUserService;
     private final RecordingUserRepository recordingUserRepository;
     private final ConcurrentHashMap<Long, RecordingUser> mapRecord = new ConcurrentHashMap<>();
+    private final RecordingValidator recordingValidator;
 
     @Override
     public SendMessage executeFirstMessage(Message message) {
@@ -46,23 +51,32 @@ public class UpdateRecordCommand implements Command {
         List<TypeRecording> allTypeByAppUserId = typeRecordingService
                 .findAllByAppUserId(appUser.getId());
         String regex = allTypeByAppUserId.stream().map(t -> t.getTypeName()).collect(Collectors.joining("|"));
-        Matcher matcher = TextFinderUtils.findRecordOnText("(" + regex + ")\\s+", messageText);
+        Matcher matcher = TextFinderUtils.findRecordOnText("(" + regex + ")(\\s+)?", messageText);
         List<String> typeRecordName = new ArrayList<>();
         while (matcher.find()){
             typeRecordName.add(matcher.group());
         }
-        String finalTypeRecordName = typeRecordName.get(0);
+        String finalTypeRecordName = typeRecordName.get(0).trim();
         TypeRecording typeRecording = allTypeByAppUserId.stream()
-                .filter(t -> t.getTypeName().equalsIgnoreCase(finalTypeRecordName)).findFirst().get();
+                .filter(t -> t.getTypeName().equalsIgnoreCase(finalTypeRecordName))
+                .findFirst()
+                .orElseThrow(() -> new InvalidRecordTypeException("Тип записи не найден"));
         List<LocalDate> allDateFromString = TextFinderUtils.extractAllDates(messageText);
         List<LocalTime> allLocalTimeFromString = TextFinderUtils.getAllLocalTimeFromString(messageText);
+        if (allDateFromString.size() == 1){
+            allDateFromString.addAll(allDateFromString);
+        }
+        if (allLocalTimeFromString.size() == 1){
+            allLocalTimeFromString.addAll(allLocalTimeFromString);
+        }
         List<LocalDateTime> dateTimes = new ArrayList<>();
         for (int i = 0; i < allDateFromString.size(); i++) {
             dateTimes.add(allDateFromString.get(i).atTime(allLocalTimeFromString.get(i)));
         }
-        Optional<RecordingUser> record = recordingUserRepository
-                .findRecordsByTimeTypeIdUserID(dateTimes.get(0), typeRecording.getId(), appUser.getId());
-        RecordingUser recordUser = record.get();
+        recordingValidator.validatorRecordingTimeList(dateTimes);
+        RecordingUser recordUser = recordingUserRepository
+                .findRecordsByTimeTypeIdUserID(dateTimes.get(0), typeRecording.getId(), appUser.getId())
+                .orElseThrow(() -> new RecordingUserNotFoundExceprion("Среди ваших записей не было найдено соответствующих вашему запросу"));
         if (typeRecordName.size() > 1) {
             String secondTypeName = typeRecordName.get(1);
             TypeRecording secondRecordType = allTypeByAppUserId.stream()
@@ -72,7 +86,7 @@ public class UpdateRecordCommand implements Command {
             recordUser.setRecordingTime(dateTimes.get(1));
         }
         mapRecord.put(telegramUserId, recordUser);
-        sendMessage.setText("Желаете изменит описание к записи?\n" +
+        sendMessage.setText("Желаете изменить описание к записи?\n" +
                 "Текущее описание:" + recordUser.getDescription() +
                 "\nЕсли не желаете менять описание, напишите: нет");
         log.info("Successfully update record first message for chat ID: {}", message.getText());
@@ -92,8 +106,11 @@ public class UpdateRecordCommand implements Command {
         Long telegramUserId = message.getChatId();
         SendMessage sendMessage = new SendMessage();
         RecordingUser recordingUser = mapRecord.get(telegramUserId);
+        if (recordingUser == null){
+            throw new NotFoundTemporaryDateUser("Что то пошло не так, попробуйте еще раз");
+        }
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Изменил запись на").append(recordingUser.getTypeRecording().getTypeName())
+        stringBuffer.append("Изменил запись на ").append(recordingUser.getTypeRecording().getTypeName())
                 .append("\nДата записи: ")
                 .append(recordingUser.getRecordingTime().format(DateTimeFormatter.ofPattern("yyy-dd-MM HH:mm")));
         if (!messageText.trim().toLowerCase().contains("нет")){

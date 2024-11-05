@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telproject.entity.AppUser;
 import ru.telproject.entity.RecordingUser;
 import ru.telproject.entity.TypeRecording;
+import ru.telproject.exception.NotFoundTemporaryDateUser;
 import ru.telproject.repository.RecordingUserRepository;
 import ru.telproject.service.AppUserService;
 import ru.telproject.service.RecordingService;
@@ -42,9 +43,7 @@ public class CreateRecordCommand implements Command {
     public SendMessage executeFirstMessage(Message message) {
         log.info("Processing create record first message for chat ID: {}", message.getChatId());
         LocalDateTime dateTimeRecord = parseDateTime(message.getText());
-        recordingValidator.validatorRecordingTime(dateTimeRecord);
         RecordingUser recordingUser = recordingService.createRecording(message, dateTimeRecord);
-        recordingValidator.validateTypeRecording(recordingUser.getTypeRecording());
         mapRecord.put(message.getChatId(), recordingUser);
         SendMessage sendMessage = createFirstMessage();
         log.info("Successfully processed create record message: {}", message.getText());
@@ -72,6 +71,10 @@ public class CreateRecordCommand implements Command {
         String messageText = message.getText();
         Long telegramUserId = message.getChatId();
         RecordingUser recordingUser = mapRecord.get(telegramUserId);
+        if (recordingUser == null){
+            throw new NotFoundTemporaryDateUser("Что то пошло не так, попробуйте еще раз." +
+                    "Не получилось найти ваши данные для создания записи");
+        }
         Pair<SendMessage, String> pair = createNextMessage(recordingUser, messageText);
         mapRecord.remove(telegramUserId);
         recordingUserRepository.save(recordingUser);
@@ -97,9 +100,9 @@ public class CreateRecordCommand implements Command {
     }
 
     private SendMessage buildResponseMessage(RecordingUser recordingUser){
-        return SendMessage.builder()
-                .chatId(recordingUser.getAppUser().getTelegramUserId())
-                .build();
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(recordingUser.getAppUser().getTelegramUserId());
+        return sendMessage;
     }
 
 

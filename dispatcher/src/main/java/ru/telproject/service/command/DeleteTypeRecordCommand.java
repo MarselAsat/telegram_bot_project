@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telproject.entity.AppUser;
 import ru.telproject.entity.TypeRecording;
+import ru.telproject.exception.UserNotFoundException;
 import ru.telproject.service.AppUserService;
 import ru.telproject.service.TypeRecordingService;
 import ru.telproject.service.custom_interface.Command;
@@ -34,8 +35,9 @@ public class DeleteTypeRecordCommand implements Command {
         while (matcher.find()) {
             typeName = matcher.group(2);
         }
-        Optional<AppUser> byTelegramUserId = appUserService.findAppUserByTelegramId(telegramUserId);
-        List<TypeRecording> typeRecordings = typeRecordingService.findByTypeNameIgnoreCaseAndAppUserId(typeName, byTelegramUserId.orElseThrow().getId());
+        AppUser appUser = appUserService.findAppUserByTelegramId(telegramUserId)
+                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+        List<TypeRecording> typeRecordings = typeRecordingService.findByTypeNameIgnoreCaseAndAppUserId(typeName, appUser.getId());
         if (typeRecordings.size() == 0) {
             sendMessage.setText(String.format("Не смог удалить тип услуги: %s, потому что не нашел у вас такой услуги", typeName));
             return sendMessage;

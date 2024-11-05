@@ -1,10 +1,12 @@
-package ru.telproject;
+package ru.telproject.service.command;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.util.Pair;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,14 +14,21 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telproject.entity.AppUser;
 import ru.telproject.entity.RecordingUser;
 import ru.telproject.entity.TypeRecording;
+import ru.telproject.exception.IllegalDateException;
+import ru.telproject.exception.InvalidRecordTypeException;
+import ru.telproject.exception.NotFoundTemporaryDateUser;
+import ru.telproject.exception.TypeRecordingNotFoundException;
 import ru.telproject.repository.RecordingUserRepository;
 import ru.telproject.service.AppUserService;
+import ru.telproject.service.RecordingService;
 import ru.telproject.service.TypeRecordingService;
 import ru.telproject.service.command.CreateRecordCommand;
+import ru.telproject.validator.RecordingValidator;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +48,13 @@ class CreateRecordCommandTest {
     private TypeRecordingService typeRecordingService;
     @Mock
     private AppUserService appUserService;
-    @InjectMocks
+
+    @Spy
+    private RecordingValidator recordingValidator;
+
+
+    private RecordingService recordingService;
+
     private CreateRecordCommand createRecordCommand;
 
     private AppUser testAppUser;
@@ -48,6 +63,12 @@ class CreateRecordCommandTest {
 
     @BeforeEach
     void setUp() {
+        recordingService = new RecordingService(typeRecordingService,
+                appUserService,
+                recordingValidator);
+        createRecordCommand = new CreateRecordCommand(recordingUserRepository,
+                recordingService,
+                recordingValidator);
         testAppUser = new AppUser();
         testAppUser.setId(1L);
         testAppUser.setTelegramUserId(123L);
@@ -62,57 +83,49 @@ class CreateRecordCommandTest {
     }
 
     @Test
-    void executeFirstMessage_SuccessfulCreation_WithTodayDate() throws IOException {
-        // Подготовка
-        when(testMessage.getText()).thenReturn("Запись на массаж сегодня в 15:00");
+    @DisplayName("Создание записи на сегодня первое сообщение")
+    void executeFirstMessageSuccessfulCreationWithTodayDate(){
+        when(testMessage.getText()).thenReturn("Запись на массаж сегодня в 22:00");
         setupCommonMocks();
 
-        // Выполнение
         SendMessage result = createRecordCommand.executeFirstMessage(testMessage);
 
-        // Проверка
         verifySuccessfulFirstMessage(result);
     }
 
     @Test
-    void executeFirstMessage_SuccessfulCreation_WithTomorrowDate() throws IOException {
-        // Подготовка
+    @DisplayName("Создание записи на завра первое сообщение")
+    void executeFirstMessageSuccessfulCreationWithTomorrowDate(){
         when(testMessage.getText()).thenReturn("Запись на массаж завтра в 15:00");
         setupCommonMocks();
 
-        // Выполнение
         SendMessage result = createRecordCommand.executeFirstMessage(testMessage);
 
-        // Проверка
         verifySuccessfulFirstMessage(result);
     }
 
     @Test
-    void executeFirstMessage_SuccessfulCreation_WithSpecificDate() throws IOException {
-        // Подготовка
-        when(testMessage.getText()).thenReturn("Запись на массаж 25.12.2024 в 15:00");
+    @DisplayName("Создание записи на определенную дату первое сообщение")
+    void executeFirstMessageSuccessfulCreationWithSpecificDate(){
+        when(testMessage.getText()).thenReturn("Запись на массаж 25 декабря в 15:00");
         setupCommonMocks();
 
-        // Выполнение
         SendMessage result = createRecordCommand.executeFirstMessage(testMessage);
 
-        // Проверка
         verifySuccessfulFirstMessage(result);
     }
 
     @Test
-    void executeFirstMessage_InvalidDateTime_ShouldThrowException() {
-        // Подготовка
+    @DisplayName("Ошибка некорректной даты первое сообщение")
+    void executeFirstMessageInvalidDateTimeShouldThrowException() {
         when(testMessage.getText()).thenReturn("Запись на массаж в некорректное время");
-        setupCommonMocks();
 
-        // Проверка
-        assertThrows(RuntimeException.class, () -> createRecordCommand.executeFirstMessage(testMessage));
+        assertThrows(DateTimeParseException.class, () -> createRecordCommand.executeFirstMessage(testMessage));
     }
 
     @Test
-    void executeFirstMessage_MultipleTypeRecordings_ShouldUseFirst() throws IOException {
-        // Подготовка
+    @DisplayName("Проверка получения первого типа записи, при существовании нескольких схожих типов, если указано не полное имя")
+    void executeFirstMessageMultipleTypeRecordingsShouldUseFirst(){
         TypeRecording secondType = new TypeRecording();
         secondType.setTypeName("массаж спины");
 
@@ -122,71 +135,74 @@ class CreateRecordCommandTest {
         when(typeRecordingService.findByTypeNameIgnoreCaseAndAppUserId(anyString(), anyLong()))
                 .thenReturn(Arrays.asList(testTypeRecording, secondType));
 
-        // Выполнение
         SendMessage result = createRecordCommand.executeFirstMessage(testMessage);
 
-        // Проверка
         verifySuccessfulFirstMessage(result);
     }
 
     @Test
-    void executeNextMessage_WithDescription_SuccessfulSave() {
-        // Подготовка
+    @DisplayName("Проверка сохранения записи при если пользователь отправил описание")
+    void executeNextMessageWithDescriptionSuccessfulSave() {
         String description = "Телефон: +7999123456";
         when(testMessage.getText()).thenReturn(description);
         RecordingUser recordingUser = createTestRecordingUser();
         setRecordingUserInMap(123L, recordingUser);
 
-        // Выполнение
         Pair<SendMessage, String> result = createRecordCommand.executeNextMessage(testMessage);
 
-        // Проверка
         verifySuccessfulNextMessage(result, true);
         verify(recordingUserRepository).save(argThat(ru ->
                 ru.getDescription().equals(description)));
     }
 
     @Test
-    void executeNextMessage_WithoutDescription_SuccessfulSave() {
-        // Подготовка
+    @DisplayName("Проверка сохранения записи если пользователь отказался добавлять описание")
+    void executeNextMessageWithoutDescriptionSuccessfulSave() {
         when(testMessage.getText()).thenReturn("нет");
         RecordingUser recordingUser = createTestRecordingUser();
         setRecordingUserInMap(123L, recordingUser);
 
-        // Выполнение
         Pair<SendMessage, String> result = createRecordCommand.executeNextMessage(testMessage);
 
-        // Проверка
         verifySuccessfulNextMessage(result, false);
         verify(recordingUserRepository).save(argThat(ru ->
                 ru.getDescription() == null));
     }
 
     @Test
-    void executeNextMessage_WithEmptyMap_ShouldHandleGracefully() {
-        // Подготовка
+    @DisplayName("Ошибка выполнения следующего сообщения при отсутствии временных данных")
+    void executeNextMessageWithoutTemporaryData() {
         when(testMessage.getText()).thenReturn("тест");
 
-        // Выполнение
-        Pair<SendMessage, String> result = createRecordCommand.executeNextMessage(testMessage);
-
-        // Проверка
-        assertNotNull(result);
-        verify(recordingUserRepository).save(any(RecordingUser.class));
+        assertThrows(NotFoundTemporaryDateUser.class,() -> createRecordCommand.executeNextMessage(testMessage));
     }
 
     @Test
-    void findTypeRecordings_NoMatchingType_ShouldThrowException() {
-        // Подготовка
+    @DisplayName("Ошибка выполнения следующего сообщения при несуществующем типе услуги")
+    void findTypeRecordingsNoMatchingTypeShouldThrowException() {
         when(testMessage.getText()).thenReturn("Запись на несуществующую услугу завтра в 15:00");
         when(appUserService.findAppUserByTelegramId(123L)).thenReturn(Optional.of(testAppUser));
         when(typeRecordingService.findAllByAppUserId(1L)).thenReturn(Collections.emptyList());
 
-        // Проверка
-        assertThrows(RuntimeException.class, () -> createRecordCommand.executeFirstMessage(testMessage));
+        assertThrows(TypeRecordingNotFoundException.class, () -> createRecordCommand.executeFirstMessage(testMessage));
     }
 
-    // Вспомогательные методы
+    @Test
+    @DisplayName("Проверка очистки временных данных после обработки следующего сообщения")
+    void executeNextMessageClearTemporaryData() {
+        when(testMessage.getText()).thenReturn("нет");
+        RecordingUser recordingUser = createTestRecordingUser();
+        setRecordingUserInMap(123L, recordingUser);
+
+        Pair<SendMessage, String> result = createRecordCommand.executeNextMessage(testMessage);
+
+        verifySuccessfulNextMessage(result, false);
+        verify(recordingUserRepository).save(argThat(ru ->
+                ru.getDescription() == null));
+        assertNull(getRecordingUserInMap(123L));
+
+    }
+
     private void setupCommonMocks() {
         when(appUserService.findAppUserByTelegramId(123L)).thenReturn(Optional.of(testAppUser));
         when(typeRecordingService.findAllByAppUserId(1L)).thenReturn(List.of(testTypeRecording));
@@ -227,6 +243,18 @@ class CreateRecordCommandTest {
             mapRecord.put(userId, recordingUser);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private RecordingUser getRecordingUserInMap(Long chatId){
+        try {
+            Field mapRecordField = CreateRecordCommand.class.getDeclaredField("mapRecord");
+            mapRecordField.setAccessible(true);
+            ConcurrentHashMap<Long, RecordingUser> mapRecord =
+                    (ConcurrentHashMap<Long, RecordingUser>) mapRecordField.get(createRecordCommand);
+            return mapRecord.get(chatId);
+        }catch (NoSuchFieldException | IllegalAccessException ex){
+            throw new RuntimeException(ex);
         }
     }
 }

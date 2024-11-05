@@ -1,9 +1,11 @@
 package ru.telproject.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -12,6 +14,7 @@ import ru.telproject.entity.RecordingUser;
 import ru.telproject.entity.TypeRecording;
 import ru.telproject.exception.InvalidRecordingTimeException;
 import ru.telproject.repository.RecordingUserRepository;
+import ru.telproject.validator.RecordingValidator;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,11 +29,20 @@ class RecordingServiceTest {
     private AppUserService appUserService;
     @Mock
     private TypeRecordingService typeRecordingService;
+    @Spy
+    private RecordingValidator recordingValidator;
 
+    @Mock
     private Message message;
     @InjectMocks
     private RecordingService recordingService;
 
+    @BeforeEach
+    void setUp(){
+        when(message.getChatId())
+                .thenReturn(123L);
+
+    }
 
     @Test
     void createRecording() {
@@ -44,7 +56,10 @@ class RecordingServiceTest {
                 .thenReturn(Optional.of(user));
         when(typeRecordingService.findByTypeNameIgnoreCaseAndAppUserId(recordTypeName, user.getId()))
                 .thenReturn(List.of(typeRecording));
-        when(message.getChatId()).thenReturn(chatId);
+        when(typeRecordingService.findAllByAppUserId(user.getId()))
+                .thenReturn(List.of(typeRecording));
+        when(message.getText())
+                .thenReturn("создай запись на массаж 25 октября в 15:00");
 
         RecordingUser result = recordingService.createRecording(message, recordingTime);
         assertNotNull(result);
