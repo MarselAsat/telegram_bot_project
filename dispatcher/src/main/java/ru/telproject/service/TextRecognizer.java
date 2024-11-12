@@ -1,5 +1,6 @@
 package ru.telproject.service;
 
+import lombok.RequiredArgsConstructor;
 import opennlp.tools.doccat.DoccatModel;
 import opennlp.tools.doccat.DocumentCategorizerME;
 import opennlp.tools.tokenize.SimpleTokenizer;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Component
+@RequiredArgsConstructor
 public class TextRecognizer {
     @Value("${intent.model.path}")
     private String intentModelPath;
@@ -22,6 +24,7 @@ public class TextRecognizer {
 
 
     private DocumentCategorizerME intentCategorizer;
+    private final MetricsService metricsService;
 
     @PostConstruct
     public void init() throws IOException {
@@ -32,13 +35,17 @@ public class TextRecognizer {
     }
 
     public String recognizeIntent(String text){
-        String[] tokens = SimpleTokenizer.INSTANCE.tokenize(text.toLowerCase());
-        double[] outcomes = intentCategorizer.categorize(tokens);
-        String bestCategory = intentCategorizer.getBestCategory(outcomes);
-        double maxResult = Arrays.stream(outcomes).max().getAsDouble();
-        if (maxResult < 0.5){
-            bestCategory = "null";
-        }
-        return bestCategory;
+        return metricsService.recordingTime("recognize_text_time", () -> {
+            String[] tokens = SimpleTokenizer.INSTANCE.tokenize(text.toLowerCase());
+            double[] outcomes = intentCategorizer.categorize(tokens);
+            String bestCategory = intentCategorizer.getBestCategory(outcomes);
+            double maxResult = Arrays.stream(outcomes).max().getAsDouble();
+            if (maxResult < 0.5) {
+                bestCategory = "null";
+            }
+            metricsService.incrementCounter("recognize_text_successful_counter", "intent_user",
+                    bestCategory);
+            return bestCategory;
+        });
     }
 }

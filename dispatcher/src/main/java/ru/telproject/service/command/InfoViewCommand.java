@@ -1,14 +1,18 @@
 package ru.telproject.service.command;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import ru.telproject.service.MetricsService;
 import ru.telproject.service.custom_interface.Command;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class InfoViewCommand implements Command {
+    //private final MetricsService metricsService;
     @Override
     public SendMessage executeFirstMessage(Message message) {
         log.info("Processing get info message for chat ID: {}", message.getText());
@@ -44,6 +48,8 @@ public class InfoViewCommand implements Command {
                 Пример как посмотреть записи на конкретное число:
                     Напишите: Покажи записи на 16 ноября
                 """);
+        /*metricsService.incrementCounter("info_view_execute_successful",
+                "user_id", message.getChatId().toString());*/
         return sendMessage;
     }
 }

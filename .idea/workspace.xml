@@ -4,42 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2baec2a9-d728-44bc-869f-ff4b7de8970e" name="Changes" comment="feat: refactor code, added GlobalExceptionHandler and added test part 1">
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/IllegalDateException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/NotFoundStickerException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/NotFoundTemporaryDateUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception/RecordingUserNotFoundExceprion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/TextRecognizerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/CreateTypeRecordCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/DeleteRecordCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/DeleteTypeRecordCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/FirstRegistrationCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/InfoViewCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/UpdateRecordCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/ViewRecordCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/ViewTypeRecordCommandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dispatcher/src/test/resources/intent-training-data.txt" afterDir="false" />
+    <list default="true" id="2baec2a9-d728-44bc-869f-ff4b7de8970e" name="Changes" comment="feat: refactor code, added GlobalExceptionHandler and added test part 2">
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/configuration/MetricsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/MetricsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception_handle/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/exception_handle/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/RecordingUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/repository/RecordingUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RecordingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RecordingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TextRecognizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TextRecognizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateTypeRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateTypeRecordCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteRecordCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteTypeRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteTypeRecordCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/FirstRegistrationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/FirstRegistrationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/InfoViewCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/InfoViewCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewTypeRecordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewTypeRecordCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/ModelTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/utils/ModelTrainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/validator/RecordingValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/validator/RecordingValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dispatcher/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/main/resources/intent-training-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/main/resources/intent-training-data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/CreateRecordCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/CreateRecordCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/RecordingServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/RecordingServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/utils/TextFinderUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/utils/TextFinderUtilsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +41,7 @@
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -76,108 +65,109 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CreateRecordCommand.executor": "Debug",
-    "Application.CreateTypeRecordCommand.executor": "Debug",
-    "Application.DeleteRecordCommand.executor": "Debug",
-    "Application.DispatcherApplication.executor": "Debug",
-    "Application.StemmingUtils.executor": "Run",
-    "Application.TextFinderUtils.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.executeFirstMessageInvalidDateTimeShouldThrowException.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.executeFirstMessageMultipleTypeRecordingsShouldUseFirst.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.executeFirstMessageSuccessfulCreationWithSpecificDate.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.executeFirstMessageSuccessfulCreationWithTodayDate.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.executeFirstMessageSuccessfulCreationWithTomorrowDate.executor": "Run",
-    "JUnit.CreateRecordCommandTest.executeNextMessageClearTemporaryData.executor": "Run",
-    "JUnit.CreateRecordCommandTest.executeNextMessageNoTemporaryData.executor": "Run",
-    "JUnit.CreateRecordCommandTest.executeNextMessageWithDescriptionSuccessfulSave.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.executeNextMessageWithEmptyMapShouldHandleGracefully.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.executeNextMessage_WithoutDescription_SuccessfulSave.executor": "Run",
-    "JUnit.CreateRecordCommandTest.executor": "Debug",
-    "JUnit.CreateRecordCommandTest.findTypeRecordingsNoMatchingTypeShouldThrowException.executor": "Run",
-    "JUnit.CreateTypeRecordCommandTest.executeNextMessageClearTemporaryData.executor": "Run",
-    "JUnit.CreateTypeRecordCommandTest.executeNextMessagesNoTemporaryData.executor": "Debug",
-    "JUnit.CreateTypeRecordCommandTest.executor": "Debug",
-    "JUnit.DeleteRecordCommandTest.executeFirstMessageSuccessful.executor": "Debug",
-    "JUnit.DeleteRecordCommandTest.executeFirstMessageWithIncorrectDate.executor": "Run",
-    "JUnit.DeleteRecordCommandTest.executeFirstMessageWithoutRecordType.executor": "Run",
-    "JUnit.DeleteRecordCommandTest.executeFirstMessageWithoutUser.executor": "Run",
-    "JUnit.DeleteRecordCommandTest.executeNextMessageSuccessful.executor": "Debug",
-    "JUnit.DeleteRecordCommandTest.executor": "Run",
-    "JUnit.DeleteTypeRecordCommandTest.executeFirstMessage.executor": "Run",
-    "JUnit.DeleteTypeRecordCommandTest.executeFirstMessageWithIncorrectDate.executor": "Run",
-    "JUnit.DeleteTypeRecordCommandTest.executeFirstMessageWithIncorrectMessage.executor": "Run",
-    "JUnit.DeleteTypeRecordCommandTest.executeFirstMessageWithNoUser.executor": "Run",
-    "JUnit.FirstRegistrationCommandTest.executeFirstMessage.executor": "Run",
-    "JUnit.FirstRegistrationCommandTest.executeFirstMessageWithUserInMap.executor": "Run",
-    "JUnit.FirstRegistrationCommandTest.executeNextMessageSuccessful.executor": "Run",
-    "JUnit.FirstRegistrationCommandTest.executeNextMessageUserDoesntRegistration.executor": "Run",
-    "JUnit.FirstRegistrationCommandTest.executor": "Run",
-    "JUnit.InfoViewCommandTest.executeFirstMessage.executor": "Run",
-    "JUnit.RecordingServiceTest.executor": "Debug",
-    "JUnit.TextRecognizerTest$CommandRecognitionTests.executor": "Run",
-    "JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeCreateRecordCommand.executor": "Debug",
-    "JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeCreateTypeRecordCommand.executor": "Debug",
-    "JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeDeleteRecordCommand.executor": "Debug",
-    "JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeDeleteTypeRecordCommand.executor": "Run",
-    "JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeViewRecordCommand.executor": "Debug",
-    "JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeViewRecordTypeCommand.executor": "Run",
-    "JUnit.TextRecognizerTest.executor": "Run",
-    "JUnit.TextRecognizerTest.handleEmptyText.executor": "Run",
-    "JUnit.TextRecognizerTest.recognizeIntentCreateRecord.executor": "Run",
-    "JUnit.UpdateRecordCommandTest.executeFirstMessageSuccessful.executor": "Debug",
-    "JUnit.UpdateRecordCommandTest.executeFirstMessageSuccessfulWithSpecificDate.executor": "Run",
-    "JUnit.UpdateRecordCommandTest.executeFirstMessageWithNoLocalDate.executor": "Debug",
-    "JUnit.UpdateRecordCommandTest.executeFirstMessageWithNoLocalTime.executor": "Run",
-    "JUnit.UpdateRecordCommandTest.executeFirstMessageWithNoUser.executor": "Debug",
-    "JUnit.UpdateRecordCommandTest.executeNextMessageClearTemporaryData.executor": "Run",
-    "JUnit.UpdateRecordCommandTest.executeNextMessageWithDescriptionSuccessfulSave.executor": "Debug",
-    "JUnit.UpdateRecordCommandTest.executeNextMessageWithoutDescriptionSuccessfulSave.executor": "Run",
-    "JUnit.UpdateRecordCommandTest.executeNextMessageWithoutTemporaryData.executor": "Run",
-    "JUnit.UpdateRecordCommandTest.findTypeRecordingsNoMatchingTypeShouldThrowException.executor": "Run",
-    "JUnit.ViewRecordCommandTest.executeFirstMessage.executor": "Run",
-    "JUnit.ViewRecordCommandTest.executeFirstMessageSuccessfulWithNoDate.executor": "Run",
-    "JUnit.ViewRecordCommandTest.executeFirstMessageWithNoRecord.executor": "Debug",
-    "JUnit.ViewRecordCommandTest.executeNextMessage.executor": "Run",
-    "JUnit.ViewRecordCommandTest.executeNextMessageSuccessful.executor": "Debug",
-    "JUnit.ViewRecordCommandTest.executeNextMessageWithIncorrectDate.executor": "Run",
-    "JUnit.ViewRecordCommandTest.executeNextMessageWithNoRecord.executor": "Run",
-    "JUnit.ViewRecordCommandTest.executeNextMessageWithNoUser.executor": "Run",
-    "JUnit.ViewTypeRecordCommandTest.executeFirstMessageWithRecordTypeEmpty.executor": "Debug",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.DispatcherApplication.executor": "Debug",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "refactor__and__added__test",
-    "jdk.selected.JAVA_MODULE": "17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marsel.asatov/IdeaProjects/telegram_bot_project/dispatcher/src/test/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/marsel.asatov/IdeaProjects/telegram_bot_project/user_hash/src/main/java/ru/telproj/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CreateRecordCommand.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.CreateTypeRecordCommand.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.DeleteRecordCommand.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.DispatcherApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.StemmingUtils.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TextFinderUtils.executor&quot;: &quot;Debug&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeFirstMessageInvalidDateTimeShouldThrowException.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeFirstMessageMultipleTypeRecordingsShouldUseFirst.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeFirstMessageSuccessfulCreationWithSpecificDate.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeFirstMessageSuccessfulCreationWithTodayDate.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeFirstMessageSuccessfulCreationWithTomorrowDate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeNextMessageClearTemporaryData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeNextMessageNoTemporaryData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeNextMessageWithDescriptionSuccessfulSave.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeNextMessageWithEmptyMapShouldHandleGracefully.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executeNextMessage_WithoutDescription_SuccessfulSave.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateRecordCommandTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateRecordCommandTest.findTypeRecordingsNoMatchingTypeShouldThrowException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateTypeRecordCommandTest.executeNextMessageClearTemporaryData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateTypeRecordCommandTest.executeNextMessagesNoTemporaryData.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.CreateTypeRecordCommandTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.DeleteRecordCommandTest.executeFirstMessageSuccessful.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.DeleteRecordCommandTest.executeFirstMessageWithIncorrectDate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteRecordCommandTest.executeFirstMessageWithoutRecordType.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteRecordCommandTest.executeFirstMessageWithoutUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteRecordCommandTest.executeNextMessageSuccessful.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.DeleteRecordCommandTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteTypeRecordCommandTest.executeFirstMessage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteTypeRecordCommandTest.executeFirstMessageWithIncorrectDate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteTypeRecordCommandTest.executeFirstMessageWithIncorrectMessage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteTypeRecordCommandTest.executeFirstMessageWithNoUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FirstRegistrationCommandTest.executeFirstMessage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FirstRegistrationCommandTest.executeFirstMessageWithUserInMap.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FirstRegistrationCommandTest.executeNextMessageSuccessful.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FirstRegistrationCommandTest.executeNextMessageUserDoesntRegistration.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FirstRegistrationCommandTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InfoViewCommandTest.executeFirstMessage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RecordingServiceTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.TextRecognizerTest$CommandRecognitionTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeCreateRecordCommand.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeCreateTypeRecordCommand.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeDeleteRecordCommand.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeDeleteTypeRecordCommand.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeViewRecordCommand.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeViewRecordTypeCommand.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TextRecognizerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TextRecognizerTest.handleEmptyText.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TextRecognizerTest.recognizeIntentCreateRecord.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeFirstMessageSuccessful.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeFirstMessageSuccessfulWithSpecificDate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeFirstMessageWithNoLocalDate.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeFirstMessageWithNoLocalTime.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeFirstMessageWithNoUser.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeNextMessageClearTemporaryData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeNextMessageWithDescriptionSuccessfulSave.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeNextMessageWithoutDescriptionSuccessfulSave.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.executeNextMessageWithoutTemporaryData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateRecordCommandTest.findTypeRecordingsNoMatchingTypeShouldThrowException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeFirstMessage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeFirstMessageSuccessfulWithNoDate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeFirstMessageWithNoRecord.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeNextMessage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeNextMessageSuccessful.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeNextMessageWithIncorrectDate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeNextMessageWithNoRecord.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ViewRecordCommandTest.executeNextMessageWithNoUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ViewTypeRecordCommandTest.executeFirstMessageWithRecordTypeEmpty.executor&quot;: &quot;Debug&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.DispatcherApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;refactor__and__added__test&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marsel.asatov/IdeaProjects/telegram_bot_project/dispatcher/src/test/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/marsel.asatov/IdeaProjects/telegram_bot_project/user_hash/src/main/java/ru/telproj/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "redis"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;redis&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -210,7 +200,7 @@
       <recent name="ru.telproject.utils" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TextRecognizerTest">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration name="TextRecognizerTest$CommandRecognitionTests.recognizeCreateRecordCommand" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="dispatcher" />
       <extension name="coverage">
@@ -243,38 +233,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TextRecognizerTest$CommandRecognitionTests.recognizeDeleteRecordCommand" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="dispatcher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.telproject.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.telproject.service.TextRecognizerTest" />
-      <option name="MAIN_CLASS_NAME" value="ru.telproject.service.TextRecognizerTest$CommandRecognitionTests" />
-      <option name="METHOD_NAME" value="recognizeDeleteRecordCommand" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TextRecognizerTest$CommandRecognitionTests.recognizeViewRecordCommand" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="dispatcher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.telproject.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.telproject.service.TextRecognizerTest" />
-      <option name="MAIN_CLASS_NAME" value="ru.telproject.service.TextRecognizerTest$CommandRecognitionTests" />
-      <option name="METHOD_NAME" value="recognizeViewRecordCommand" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TextRecognizerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="dispatcher" />
       <extension name="coverage">
@@ -290,13 +248,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DispatcherApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="dispatcher" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.telproject.DispatcherApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.telproject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="Spring Boot.DispatcherApplication" />
         <item itemvalue="JUnit.TextRecognizerTest" />
         <item itemvalue="JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeCreateRecordCommand" />
         <item itemvalue="JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeCreateTypeRecordCommand" />
-        <item itemvalue="JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeViewRecordCommand" />
-        <item itemvalue="JUnit.TextRecognizerTest$CommandRecognitionTests.recognizeDeleteRecordCommand" />
       </list>
     </recent_temporary>
   </component>
@@ -341,7 +320,10 @@
       <workItem from="1730442381986" duration="15610000" />
       <workItem from="1730527461492" duration="3213000" />
       <workItem from="1730531402265" duration="13380000" />
-      <workItem from="1730787550374" duration="5595000" />
+      <workItem from="1730787550374" duration="9580000" />
+      <workItem from="1730803118307" duration="10521000" />
+      <workItem from="1731048420465" duration="20724000" />
+      <workItem from="1731305489983" duration="1188000" />
     </task>
     <task id="LOCAL-00001" summary="Realization on response SendMessage">
       <created>1668519218842</created>
@@ -366,7 +348,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730214149291</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: refactor code, added GlobalExceptionHandler and added test part 2">
+      <option name="closed" value="true" />
+      <created>1730794904241</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730794904241</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,7 +377,8 @@
     <MESSAGE value="Realization on response SendMessage" />
     <MESSAGE value="feat: add redis hash and ttl to record user on redis, added open nlp model" />
     <MESSAGE value="feat: refactor code, added GlobalExceptionHandler and added test part 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor code, added GlobalExceptionHandler and added test part 1" />
+    <MESSAGE value="feat: refactor code, added GlobalExceptionHandler and added test part 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor code, added GlobalExceptionHandler and added test part 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -398,38 +389,28 @@
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/controller/UpdateController.java</url>
-          <line>93</line>
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/user_hash/src/main/java/ru/telproj/Main.java</url>
           <line>13</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/AppUserService.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="101" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingService.java</url>
-          <line>40</line>
+          <line>45</line>
           <option name="timeStamp" value="105" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingService.java</url>
-          <line>53</line>
+          <line>61</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingService.java</url>
-          <line>78</line>
+          <line>90</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TypeRecordingService.java</url>
-          <line>47</line>
+          <line>52</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -437,32 +418,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java</url>
-          <line>22</line>
+          <line>24</line>
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RedisKeyExpirationListener.java</url>
-          <line>23</line>
+          <line>25</line>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java</url>
-          <line>47</line>
+          <line>50</line>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java</url>
-          <line>44</line>
+          <line>47</line>
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java</url>
-          <line>41</line>
+          <line>44</line>
           <option name="timeStamp" value="121" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/scheduler/ScheduledTask.java</url>
-          <line>37</line>
+          <line>40</line>
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -472,18 +453,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java</url>
-          <line>44</line>
+          <line>36</line>
           <option name="timeStamp" value="138" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/CreateRecordCommand.java</url>
-          <line>54</line>
+          <line>49</line>
           <option name="timeStamp" value="139" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/telegram/telegrambots/6.1.0/telegrambots-6.1.0.jar!/org/telegram/telegrambots/bots/DefaultAbsSender.class</url>
-          <line>1058</line>
-          <option name="timeStamp" value="142" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/command/CreateRecordCommandTest.java</url>
@@ -492,7 +468,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/RecordingService.java</url>
-          <line>49</line>
+          <line>56</line>
           <option name="timeStamp" value="147" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -507,7 +483,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java</url>
-          <line>52</line>
+          <line>55</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -515,12 +491,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java</url>
-          <line>59</line>
+          <line>62</line>
           <option name="timeStamp" value="155" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/UpdateRecordCommand.java</url>
-          <line>75</line>
+          <line>78</line>
           <option name="timeStamp" value="157" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -535,12 +511,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteRecordCommand.java</url>
-          <line>59</line>
+          <line>62</line>
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/DeleteRecordCommand.java</url>
-          <line>46</line>
+          <line>49</line>
           <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -555,7 +531,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewTypeRecordCommand.java</url>
-          <line>27</line>
+          <line>30</line>
           <option name="timeStamp" value="168" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -570,7 +546,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/FirstRegistrationCommand.java</url>
-          <line>36</line>
+          <line>40</line>
           <option name="timeStamp" value="179" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -594,11 +570,6 @@
           <option name="timeStamp" value="188" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="189" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/test/java/ru/telproject/service/TextRecognizerTest.java</url>
           <line>60</line>
           <option name="timeStamp" value="190" />
@@ -620,8 +591,43 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TextRecognizer.java</url>
-          <line>38</line>
+          <line>42</line>
           <option name="timeStamp" value="199" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="200" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="201" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="202" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="207" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/TextRecognizer.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="208" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="209" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/service/command/ViewRecordCommand.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="210" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/dispatcher/src/main/java/ru/telproject/validator/RecordingValidator.java</url>
@@ -641,7 +647,16 @@
           </properties>
           <option name="timeStamp" value="164" />
         </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.postgresql.util.PSQLException" package="org.postgresql.util" />
+          <option name="timeStamp" value="203" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="((HikariProxyPreparedStatement)this).delegate" custom="com.zaxxer.hikari.pool.HikariProxyPreparedStatement" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

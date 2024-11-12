@@ -17,6 +17,7 @@ public class AppUserService {
     private final RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, AppUser> hashOperations;
     private final AppUserRepository appUserRepository;
+    private final MetricsService metricsService;
     private final String APP_USER_HASH_KEY = "AppUser";
 
     @PostConstruct
@@ -25,28 +26,28 @@ public class AppUserService {
     }
 
     public void saveUser(AppUser appUser){
-        appUserRepository.save(appUser);
-        hashOperations.put(APP_USER_HASH_KEY, appUser.getTelegramUserId().toString(), appUser);
+        metricsService.recordingTimeVoid("app_user_save_time", () -> {
+            appUserRepository.save(appUser);
+            hashOperations.put(APP_USER_HASH_KEY, appUser.getTelegramUserId().toString(), appUser);
+            metricsService.incrementCounter("app_user_save_successful_counter",
+                    "user_id", appUser.getTelegramUserId().toString());
+        });
     }
 
     public Optional<AppUser> findAppUserByTelegramId(Long id){
-        AppUser appUser = hashOperations.get(APP_USER_HASH_KEY, id.toString());
-        if (appUser == null){
-            appUser = appUserRepository.findByTelegramUserId(id).orElse(null);
-            if (appUser != null){
-                hashOperations.put(APP_USER_HASH_KEY, appUser.getTelegramUserId().toString(), appUser);
+       return metricsService.recordingTime("app_user_find_time", () -> {
+            AppUser appUser = hashOperations.get(APP_USER_HASH_KEY, id.toString());
+            if (appUser == null) {
+                appUser = appUserRepository.findByTelegramUserId(id).orElse(null);
+                if (appUser != null) {
+                    hashOperations.put(APP_USER_HASH_KEY, appUser.getTelegramUserId().toString(), appUser);
+                }
             }
-        }
-        return Optional.ofNullable(appUser);
+            metricsService.incrementCounter("app_user_find_successful_counter", "user_id",
+                    appUser.getTelegramUserId().toString());
+            return Optional.ofNullable(appUser);
+        });
     }
 
-    public Map<String, AppUser> findAllAppUser(){
-        return hashOperations.entries(APP_USER_HASH_KEY);
-    }
-
-    public void deleteAppUser(Long telegramId){
-        appUserRepository.deleteAppUserByTelegramUserId(telegramId);
-        hashOperations.delete(APP_USER_HASH_KEY, telegramId);
-    }
 
 }

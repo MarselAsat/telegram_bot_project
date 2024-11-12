@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import ru.telproject.entity.RecordingUser;
 import ru.telproject.repository.RecordingUserRepository;
+import ru.telproject.service.MetricsService;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class ScheduledTask implements Job {
     private final RecordingUserRepository recordingUserRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
+    private final MetricsService metricsService;
     private static String RECORDING_HASH_KEY = "RecordingUser";
     private ValueOperations<String, Object> valueOperations;
 
@@ -35,19 +37,22 @@ public class ScheduledTask implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        LocalDateTime startTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        LocalDateTime endTime = startTime.plusHours(2);
-        List<RecordingUser> allRecordingOnNextTwoHour = recordingUserRepository.findAllByRecordingTimeBetween(startTime, endTime);
-        for (RecordingUser recordingUser : allRecordingOnNextTwoHour){
-            String key = RECORDING_HASH_KEY + recordingUser.getId();
-            long differenceSecond = startTime.until(recordingUser.getRecordingTime().minusHours(1), ChronoUnit.SECONDS);
-            System.out.println(differenceSecond);
-            if (differenceSecond > 0) {
-                valueOperations.set(key, recordingUser);
-                valueOperations.set("shadow:" + key, recordingUser);
-                redisTemplate.expire(key, differenceSecond, TimeUnit.SECONDS);
+        metricsService.recordingTimeVoid("scheduled_execute_time", () -> {
+            LocalDateTime startTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+            LocalDateTime endTime = startTime.plusHours(2);
+            List<RecordingUser> allRecordingOnNextTwoHour = recordingUserRepository.findAllByRecordingTimeBetween(startTime, endTime);
+            for (RecordingUser recordingUser : allRecordingOnNextTwoHour) {
+                String key = RECORDING_HASH_KEY + recordingUser.getId();
+                long differenceSecond = startTime.until(recordingUser.getRecordingTime().minusHours(1), ChronoUnit.SECONDS);
+                System.out.println(differenceSecond);
+                if (differenceSecond > 0) {
+                    valueOperations.set(key, recordingUser);
+                    valueOperations.set("shadow:" + key, recordingUser);
+                    redisTemplate.expire(key, differenceSecond, TimeUnit.SECONDS);
+                }
             }
-        }
+            metricsService.incrementCounter("scheduled_execute_save_data_hash_counter");
+        });
     }
 
 }

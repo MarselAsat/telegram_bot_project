@@ -45,15 +45,22 @@ public class UpdateController {
             Long chatId = message.getChatId();
             String intent = textRecognizer.recognizeIntent(messageText.toLowerCase());
             if (userStates.containsKey(chatId)){
-                Command command = commandPull.getCommand(userStates.get(chatId));
-                Pair<SendMessage, String> sendMessageStringPair = command.executeNextMessage(message);
-                SendMessage returnMessage = sendMessageStringPair.getFirst();
-                returnMessage.setChatId(chatId);
-                telegramBot.sendMessage(returnMessage);
-                SendSticker sticker = sendSticker(sendMessageStringPair.getSecond());
-                sticker.setChatId(chatId);
-                telegramBot.setSticker(sticker);
-                userStates.remove(chatId);
+                try {
+                    Command command = commandPull.getCommand(userStates.get(chatId));
+                    Pair<SendMessage, String> sendMessageStringPair = command.executeNextMessage(message);
+                    SendMessage returnMessage = sendMessageStringPair.getFirst();
+                    returnMessage.setChatId(chatId);
+                    telegramBot.sendMessage(returnMessage);
+                    if (!sendMessageStringPair.getSecond().equals("null")) {
+                        SendSticker sticker = sendSticker(sendMessageStringPair.getSecond());
+                        sticker.setChatId(chatId);
+                        telegramBot.setSticker(sticker);
+                    }
+                    userStates.remove(chatId);
+                }catch (Exception ex){
+                    userStates.remove(chatId);
+                    throw ex;
+                }
             }else {
                 Command command = commandPull.getCommand(intent);
                 if (command == null) {
