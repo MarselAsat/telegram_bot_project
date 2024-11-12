@@ -1,5 +1,6 @@
 package ru.telproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class AppUser {
 
     private String firstname;
 
+    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
     private List<TypeRecording> typeRecordings = new ArrayList<>();

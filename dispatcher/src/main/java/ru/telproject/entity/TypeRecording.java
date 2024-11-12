@@ -1,10 +1,13 @@
 package ru.telproject.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,10 +28,11 @@ public class TypeRecording {
 
     private Double typeCoast;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "typeRecording")
     private List<RecordingUser> recordingUsers;
 }
