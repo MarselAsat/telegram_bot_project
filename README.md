@@ -18,6 +18,6 @@
  - Quartz
  - Redis
  - Postgres
- - Mirometer
+ - Miсrometer
  - Prometheus
  - Lombok
